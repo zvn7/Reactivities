@@ -1,0 +1,12 @@
+body {
+	background-color: #eaeaea;
+}
+
+.ui.inverted.top.fixed.menu {
+	background-color: rgb(24, 82, 165) !important;
+}
+
+.ui.inverted.top.fixed.menu .container {
+	display: flex;
+	justify-content: space-between;
+}

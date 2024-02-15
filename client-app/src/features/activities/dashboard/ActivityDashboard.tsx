@@ -13,8 +13,9 @@ interface Props {
 	editMode: boolean;
 	openForm: (id: string) => void;
 	closeForm: () => void;
-  createOrEdit: (activity: Activity) => void;
-  deleteActivity: (id: string) => void;
+	createOrEdit: (activity: Activity) => void;
+	deleteActivity: (id: string) => void;
+	submitting: boolean;
 }
 
 const ActivityDashboard: React.FC<Props> = ({
@@ -25,13 +26,19 @@ const ActivityDashboard: React.FC<Props> = ({
 	editMode,
 	openForm,
 	closeForm,
-  createOrEdit,
-  deleteActivity
+	createOrEdit,
+	deleteActivity,
+	submitting,
 }: Props) => {
 	return (
 		<Grid>
 			<Grid.Column width={10}>
-				<ActivityList activities={activities} selectActivity={selectActivity} deleteActivity={deleteActivity} />
+				<ActivityList
+					activities={activities}
+					selectActivity={selectActivity}
+					deleteActivity={deleteActivity}
+					submitting={submitting}
+				/>
 			</Grid.Column>
 			<Grid.Column width={6}>
 				{selectedActivity && !editMode && (
@@ -42,7 +49,12 @@ const ActivityDashboard: React.FC<Props> = ({
 					/>
 				)}
 				{editMode && (
-					<ActivityForm closeForm={closeForm} activity={selectedActivity} createOrEdit={createOrEdit} />
+					<ActivityForm
+						closeForm={closeForm}
+						activity={selectedActivity}
+						createOrEdit={createOrEdit}
+						submitting={submitting}
+					/>
 				)}
 			</Grid.Column>
 		</Grid>

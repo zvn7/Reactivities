@@ -1,20 +1,13 @@
 import React, { SyntheticEvent } from "react";
 import { Activity } from "../../../app/models/activity";
 import { Button, Card, Icon, Image, Label } from "semantic-ui-react";
+import { useStore } from "../../../app/stores/store";
+import { observer } from "mobx-react-lite";
 
-interface Props {
-	activities: Activity[];
-	selectActivity: (id: string) => void;
-	deleteActivity: (id: string) => void;
-	submitting: boolean;
-}
+export default observer(function ActivityList() {
+	const { activityStore } = useStore();
+	const { deleteActivity, activitiesByDate, loading } = activityStore;
 
-export default function ActivityList({
-	activities,
-	selectActivity,
-	deleteActivity,
-	submitting,
-}: Props) {
 	const [target, setTarget] = React.useState("");
 	function handleActivityDelete(
 		e: SyntheticEvent<HTMLButtonElement>,
@@ -26,7 +19,7 @@ export default function ActivityList({
 
 	return (
 		<Card.Group itemsPerRow={2} stackable>
-			{activities.map((activity) => (
+			{activitiesByDate.map((activity) => (
 				<Card key={activity.id}>
 					{/* <Image
 						src={`/assets/categoryImages/${activity.category}.jpg`}
@@ -57,12 +50,15 @@ export default function ActivityList({
 							<Label basic content={activity.category} />
 						</div>
 						<div className="ui two buttons">
-							<Button onClick={() => selectActivity(activity.id)} color="blue">
+							<Button
+								onClick={() => activityStore.selectActivity(activity.id)}
+								color="blue"
+							>
 								View
 							</Button>
 							<Button
 								name={activity.id}
-								loading={submitting && target === activity.id}
+								loading={loading && target === activity.id}
 								onClick={(e) => handleActivityDelete(e, activity.id)}
 								color="red"
 							>
@@ -74,4 +70,4 @@ export default function ActivityList({
 			))}
 		</Card.Group>
 	);
-}
+});

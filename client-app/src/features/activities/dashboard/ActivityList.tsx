@@ -3,6 +3,7 @@ import { Activity } from "../../../app/models/activity";
 import { Button, Card, Icon, Image, Label } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
+import { Link } from "react-router-dom";
 
 export default observer(function ActivityList() {
 	const { activityStore } = useStore();
@@ -51,7 +52,8 @@ export default observer(function ActivityList() {
 						</div>
 						<div className="ui two buttons">
 							<Button
-								onClick={() => activityStore.selectActivity(activity.id)}
+								as={Link}
+								to={`/activities/${activity.id}`}
 								color="blue"
 							>
 								View

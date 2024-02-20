@@ -8,9 +8,12 @@ import agent from "../api/agent";
 import LoadingComponent from "./LoadingComponent";
 import { useStore } from "../stores/store";
 import { observer } from "mobx-react-lite";
+import { Outlet, useLocation } from "react-router-dom";
+import HomePage from "../../features/home/HomePage";
 
 function App() {
-	const { activityStore } = useStore();
+	const location = useLocation();
+	// const { activityStore } = useStore();
 	// const [activities, setActivities] = useState<Activity[]>([]);
 	// const [selectedActivity, setSelectedActivity] = useState<
 	// 	Activity | undefined
@@ -27,9 +30,9 @@ function App() {
 	// 		});
 	// }, []);
 
-	useEffect(() => {
-		activityStore.loadActivities();
-	}, []);
+	// useEffect(() => {
+	// 	activityStore.loadActivities();
+	// }, []);
 
 	// function handleSelectActivity(id: string) {
 	// 	setSelectedActivity(activities.find((x) => x.id === id));
@@ -56,15 +59,21 @@ function App() {
 	// 	});
 	// }
 
-	if (activityStore.loadingInitial)
-		return <LoadingComponent content="Loading app" />;
+	// if (activityStore.loadingInitial)
+	// 	return <LoadingComponent content="Loading app" />;
 
 	return (
 		<>
-			<NavBar />
-			<Container style={{ marginTop: "7em" }}>
-				<ActivityDashboard />
-			</Container>
+			{location.pathname === "/" ? (
+				<HomePage />
+			) : (
+				<>
+					<NavBar />
+					<Container style={{ marginTop: "7em" }}>
+						<Outlet />
+					</Container>
+				</>
+			)}
 		</>
 	);
 }

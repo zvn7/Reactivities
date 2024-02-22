@@ -12,12 +12,8 @@ export default function NavBar() {
 					<Image src="/assets/logo.png" alt="logo" size="mini" />
 					Reactivities
 				</Menu.Item>
-				<Menu.Item
-					as={NavLink}
-					to="/activities"
-					content={"Activities"}
-					name="Activities"
-				/>
+				<Menu.Item as={NavLink} to="/activities" name="Activities" />
+				<Menu.Item as={NavLink} to="/errors" name="Errors" />
 				<Menu.Menu position="right">
 					<Menu.Item>
 						<Button

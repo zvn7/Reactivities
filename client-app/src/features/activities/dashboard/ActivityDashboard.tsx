@@ -20,12 +20,13 @@ export default observer(function ActivityDashboard() {
 
 	if (activityStore.loadingInitial)
 		return <LoadingComponent content="Loading app" />;
+
 	return (
 		<Grid>
-			<Grid.Column width={10}>
+			<Grid.Column mobile={16} tablet={10} computer={10}>
 				<ActivityList />
 			</Grid.Column>
-			<Grid.Column width={6}>
+			<Grid.Column mobile={16} tablet={6} computer={6}>
 				<ActivityFilter />
 			</Grid.Column>
 		</Grid>

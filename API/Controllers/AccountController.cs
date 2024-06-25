@@ -15,11 +15,11 @@ namespace API.Controllers
 { 
     [ApiController]
     [Route("api/[controller]")]
-    public class AccoutController : ControllerBase
+    public class AccountController : ControllerBase
     {  
         private readonly UserManager<AppUser> _userManager;
         private readonly TokenService _tokenService;
-        public AccoutController(UserManager<AppUser>userManager, TokenService tokenService)
+        public AccountController(UserManager<AppUser>userManager, TokenService tokenService)
         {
             _tokenService = tokenService;
             _userManager = userManager;
@@ -50,14 +50,16 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
-            if(await _userManager.Users.AnyAsync(x => x.UserName == registerDto.Username))
+            if (await _userManager.Users.AnyAsync(x => x.UserName == registerDto.Username))
             {
-                return BadRequest("Username is already taken");
+                ModelState.AddModelError("username", "Username taken");
+                return ValidationProblem();
             }
 
-            if(await _userManager.Users.AnyAsync(x => x.Email == registerDto.Email))
+            if (await _userManager.Users.AnyAsync(x => x.Email == registerDto.Email))
             {
-                return BadRequest("Email is already taken");
+                ModelState.AddModelError("email", "Email taken");
+                return ValidationProblem();
             }
 
             var user = new AppUser

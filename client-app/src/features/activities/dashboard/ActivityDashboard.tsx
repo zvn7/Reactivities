@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import { Grid } from "semantic-ui-react";
-import { Activity } from "../../../app/models/activity";
 import ActivityList from "./ActivityList";
-import ActivityDetail from "../details/ActivityDetail";
-import ActivityForm from "../../../app/common/form/ActivityForm";
 import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
 import LoadingComponent from "../../../app/layouts/LoadingComponent";
@@ -19,7 +16,7 @@ export default observer(function ActivityDashboard() {
 	}, [loadActivities]);
 
 	if (activityStore.loadingInitial)
-		return <LoadingComponent content="Loading app" />;
+		return <LoadingComponent content="Loading activitite..." />;
 
 	return (
 		<Grid>
